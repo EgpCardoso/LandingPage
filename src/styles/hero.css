@@ -1,0 +1,79 @@
+/*Estilo do container #hero*/
+
+#hero {
+    background: var(--light-gray);
+    border-top: 0.125rem solid #e4e4e4;
+    height: 90vh;
+    display: flex;
+}
+
+/*Estilo da imagem dentro #hero*/
+#hero>img {
+    position: absolute;
+    right: 0;
+    height: 60%;
+    padding-left: 30%;
+}
+
+/*Estilo de p no container #hero*/
+#hero p {
+    color: var(--second-text-color);
+}
+
+/*Estilo da div com a classe .content dentro do #hero*/
+#hero .content {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    text-align: center;
+    gap: 1.75rem;
+}
+
+/*Estilo dos elementos filhos diretos da .content*/
+#hero .content>div {
+    width: fit-content;
+    align-self: center;
+    margin-bottom: 20%;
+}
+
+/*Responsividade no container #hero*/
+@media (width >=1280px) {
+    #hero {
+        background: var(--bg-color);
+        border-top: none;
+
+        /*Posicionamento do span e img dentro de #hero*/
+        >span {
+            position: absolute;
+            top: 0;
+        }
+
+        >img {
+            top: 0;
+            height: 82%;
+            padding-left: 55%;
+        }
+
+        /*Alterações na classe .content*/
+        .content p {
+            width: 80%;
+            align-self: center;
+        }
+
+        /*Estilo específico para o primeiro filho de div dentro de .content*/
+        .content {
+            gap: 2.5rem;
+        }
+
+        .content>div :first-child {
+            width: 10.625rem;
+        }
+
+        /*Estilo específico de p em .content*/
+        .content p:first-of-type {
+            color: var(--primary-color);
+            font-weight: var(--fw-bold);
+        }
+    }
+}

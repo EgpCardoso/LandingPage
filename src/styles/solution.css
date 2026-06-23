@@ -1,0 +1,103 @@
+/*Estilos gerais da seção #solution*/
+#solution {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-block: 4rem;
+    gap: 5.75rem;
+    text-align: center;
+
+    /*Estilos do cabeçalho #solution header*/
+    #solution header {
+        display: grid;
+        gap: 1.5rem;
+        text-align: center;
+        max-width: 33rem;
+        margin: 0 auto;
+    }
+
+    /*Estilos de parágrafo #solution p*/
+    #solution p {
+        color: var(--second-text-color);
+        margin: 0 auto;  
+    }
+
+
+    /*Estilos de elemento destacado #solution strong*/
+    #solution strong {
+        color: var(--primary-color);
+        font-weight: var(--fw-bold);
+    }
+
+    /*Estilos de grupo de colunas .even-columns*/
+    #solution .even-columns {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    /*Estilos dos cartões .card*/
+    .card {
+        background: var(--light-gray);
+        box-shadow: rgba(149, 157, 165, 0.4) 0px 8px 24px;
+        max-width: 20.25rem;
+        min-height: 26rem;
+        display: flex;
+        text-align: center;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+
+        span {
+            display: flex;
+            min-height: 8rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        div {
+            height: 100%;
+            gap: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+        }
+    }
+
+    /*Estilos do título dos cartões .card h3*/
+    .card h3 {
+        font-size: 1.5rem;
+    }
+
+    /*Estilos do parágrafo dos cartões .card p*/
+    .card p {
+        line-height: 1.6rem;
+        font-size: 1rem;
+        padding-inline: 1.5rem;
+        color: var(--second-text-color);
+    }
+
+    /*Estilos da linha horizontal dos cartões .card hr*/
+    .card hr {
+        height: 6px;
+        background: var(--secondary-color);
+        width: 60%;
+        margin: 1rem auto;
+        border: none;
+    }
+
+    /*Responsividade (@media (width > 1280px)*/
+    @media (width > 1280px) {
+        #solution {
+            padding-block: 7.5rem;
+        }
+
+        #solution header>span>h2 {
+            font-size: var(--fs-sm);
+            color: var(--primary-color);
+        }
+    }
+}

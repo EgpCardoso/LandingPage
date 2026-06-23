@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="60" viewBox="0 0 220 60">
+  <!-- Ícone estilizado "A" -->
+  <g>
+    <polygon points="10,50 30,10 50,50" fill="url(#gradBlue)" />
+    <path d="M10,50 Q30,0 55,15" stroke="#4da6ff" stroke-width="6" fill="none" />
+    <circle cx="55" cy="15" r="5" fill="#4da6ff" />
+  </g>
+  
+  <!-- Texto AlkteiTech -->
+  <text x="70" y="40" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#333">
+    Alktei
+  </text>
+  <text x="150" y="40" font-family="Arial, sans-serif" font-size="28" fill="#4da6ff">
+    Tech
+  </text>
+  
+  <!-- Gradiente -->
+  <defs>
+    <linearGradient id="gradBlue" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#004080;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4da6ff;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>
