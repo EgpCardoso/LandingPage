@@ -1,4 +1,3 @@
-import fetch from "node-fetch";
 import nodemailer from "nodemailer";
 
 export async function handler(event) {
@@ -25,10 +24,11 @@ export async function handler(event) {
   });
 
   await transporter.sendMail({
-    from: email,
-    to: "seuemail@exemplo.com",
+    from: process.env.EMAIL_USER,        
+    to: process.env.EMAIL_USER,        
+    replyTo: email,
     subject: "Novo contato via site",
-    text: message,
+    text: `Mensagem de: ${email}\n\n${message}`,
   });
 
   return { statusCode: 200, body: JSON.stringify({ success: true }) };
