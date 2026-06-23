@@ -40,11 +40,13 @@ export default function Home() {
             return;
         }
 
-        // Aqui você envia o token para o backend (Netlify Function)
+        const email = (document.getElementById("email") as HTMLInputElement).value;
+        const message = (document.getElementById("message") as HTMLTextAreaElement).value;
+
         const res = await fetch("/.netlify/functions/verify-captcha", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ token: captchaValue }),
+            body: JSON.stringify({ token: captchaValue, email, message }),
         });
 
         const data = await res.json();
@@ -267,6 +269,7 @@ export default function Home() {
                 <form className="contact-form" onSubmit={handleSubmit}>
                     <input type="email" id="email" name="email" placeholder="seu.email@exemplo.com" required />
                     <textarea id="message" name="message" placeholder="Conte um pouco sobre sua necessidade" required />
+
 
                     {/* reCAPTCHA */}
                     <ReCAPTCHA sitekey="6LeCODAtAAAAAHPINyqYtUPBKN8lc94_O7yM5N24" onChange={handleCaptchaChange} />
