@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import Button from "../components/Button";
 import Card from "../components/Card";
+// @ts-ignore: No types for react-google-recaptcha
+import ReCAPTCHA from "react-google-recaptcha";
 import PricingCard from "../components/pricingCard";
 import TestimonialCard from "../components/TestimonialCard";
 import { cardsData } from "../components/cardsData";
@@ -24,7 +26,34 @@ import "../styles/footer.css";
 export default function Home() {
     const [showMobileMenu, setShowMobileMenu] = useState(false);
     const closeMobileMenu = () => setShowMobileMenu(false);
+    const [captchaValue, setCaptchaValue] = useState<string | null>(null);
 
+    const handleCaptchaChange = (value: string | null) => {
+        setCaptchaValue(value);
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (!captchaValue) {
+            alert("Por favor, confirme o reCAPTCHA");
+            return;
+        }
+
+        // Aqui você envia o token para o backend (Netlify Function)
+        const res = await fetch("/.netlify/functions/verify-captcha", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token: captchaValue }),
+        });
+
+        const data = await res.json();
+        if (data.success) {
+            alert("Mensagem enviada com sucesso!");
+        } else {
+            alert("Falha na verificação do reCAPTCHA");
+        }
+    };
     useEffect(() => {
         const html = document.querySelector("html");
         if (html) {
@@ -68,41 +97,41 @@ export default function Home() {
                         <Button text="Cadastre-se →" />
                     </div>
 
-                        <div className="mobile-menu">
-                            {showMobileMenu ?
-                                <div className="mobile-menu-content">
-                                    <div className="container flex">
-                                        <ul>
-                                            <li>
-                                                <a href="#hero" onClick={closeMobileMenu}>Home</a>
-                                            </li>
-                                            <li>
-                                                <a href="#solution" onClick={closeMobileMenu}>Soluções</a>
-                                            </li>
-                                            <li>
-                                                <a href="#testimonials" onClick={closeMobileMenu}>Depoimentos</a>
-                                            </li>
-                                            <li>
-                                                <a href="#pricing" onClick={closeMobileMenu}>Preços</a>
-                                            </li>
-                                            <li>
-                                                <a href="#contact" onClick={closeMobileMenu}>Contato</a>
-                                            </li>
-                                            <li>
-                                                <a className="reverse-color" href="#">Login</a>
-                                            </li>
-                                        </ul>
-                                        <span onClick={() => setShowMobileMenu(!showMobileMenu)} className="btn-wrapper">
-                                            <img src={Close} alt="Botão close" />
-                                        </span>
-                                    </div>
+                    <div className="mobile-menu">
+                        {showMobileMenu ?
+                            <div className="mobile-menu-content">
+                                <div className="container flex">
+                                    <ul>
+                                        <li>
+                                            <a href="#hero" onClick={closeMobileMenu}>Home</a>
+                                        </li>
+                                        <li>
+                                            <a href="#solution" onClick={closeMobileMenu}>Soluções</a>
+                                        </li>
+                                        <li>
+                                            <a href="#testimonials" onClick={closeMobileMenu}>Depoimentos</a>
+                                        </li>
+                                        <li>
+                                            <a href="#pricing" onClick={closeMobileMenu}>Preços</a>
+                                        </li>
+                                        <li>
+                                            <a href="#contact" onClick={closeMobileMenu}>Contato</a>
+                                        </li>
+                                        <li>
+                                            <a className="reverse-color" href="#">Login</a>
+                                        </li>
+                                    </ul>
+                                    <span onClick={() => setShowMobileMenu(!showMobileMenu)} className="btn-wrapper">
+                                        <img src={Close} alt="Botão close" />
+                                    </span>
                                 </div>
-                                :
-                                <span onClick={() => setShowMobileMenu(!showMobileMenu)} className="btn-wrapper" >
-                                    <img src={Menu} alt="Botão menu" />
-                                </span>
-                            }
-                        </div>
+                            </div>
+                            :
+                            <span onClick={() => setShowMobileMenu(!showMobileMenu)} className="btn-wrapper" >
+                                <img src={Menu} alt="Botão menu" />
+                            </span>
+                        }
+                    </div>
 
 
                 </nav>
@@ -235,16 +264,13 @@ export default function Home() {
                         Envie sua mensagem e nossa equipe retornará o mais rápido possível.</p>
                 </header>
 
-                <form className="contact-form">
+                <form className="contact-form" onSubmit={handleSubmit}>
                     <input type="email" id="email" name="email" placeholder="seu.email@exemplo.com" required />
+                    <textarea id="message" name="message" placeholder="Conte um pouco sobre sua necessidade" required />
 
-                    <textarea
-                        id="message"
-                        name="message"
-                        placeholder="Conte um pouco sobre sua necessidade"
-                        required
-                    />
-                    {/*Recaptcha */}
+                    {/* reCAPTCHA */}
+                    <ReCAPTCHA sitekey="6LeCODAtAAAAAHPINyqYtUPBKN8lc94_O7yM5N24" onChange={handleCaptchaChange} />
+
                     <Button text="Enviar" />
                 </form>
             </section>
